@@ -6,14 +6,14 @@
 /*   By: tcho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 02:22:08 by tcho              #+#    #+#             */
-/*   Updated: 2018/12/09 05:38:13 by tcho             ###   ########.fr       */
+/*   Updated: 2019/04/12 01:32:50 by tcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include "b_printf.h"
 
-int ft_echo(char **command, char ***env)
+int	ft_echo(char **command, char ***env)
 {
 	int i;
 	int space;

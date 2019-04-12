@@ -6,7 +6,7 @@
 /*   By: tcho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 06:54:12 by tcho              #+#    #+#             */
-/*   Updated: 2018/12/10 23:04:42 by tcho             ###   ########.fr       */
+/*   Updated: 2019/04/11 21:32:07 by tcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@
 #include "header.h"
 #include "b_printf.h"
 
-int is_space(char c)
-{
-	return (c == ' ');
-}
-
-int verify_closing_quote(char *buffer, int i)
+int		verify_closing_quote(char *buffer, int i)
 {
 	char quote;
 
@@ -37,7 +32,7 @@ int verify_closing_quote(char *buffer, int i)
 	return (i++);
 }
 
-int count_words(char *buffer)
+int		count_words(char *buffer)
 {
 	int		i;
 	int		count;
@@ -55,16 +50,16 @@ int count_words(char *buffer)
 			while (buffer[i] && (buffer[i] != ' '))
 				i++;
 		}
-		while (buffer[i] && (buffer[i] == ' '))
+		while (buffer[i] && ft_isspace(buffer[i]))
 			i++;
 	}
 	return (count);
 }
 
-int insert_word(char **list, char *buffer, int *index, int i)
+int		insert_word(char **list, char *buffer, int *index, int i)
 {
-	int j;
-	char quote;
+	int		j;
+	char	quote;
 
 	if (is_quote(buffer[i]))
 	{
@@ -78,7 +73,7 @@ int insert_word(char **list, char *buffer, int *index, int i)
 	else
 	{
 		j = i;
-		while (buffer[j] && !is_space(buffer[j]))
+		while (buffer[j] && !ft_isspace(buffer[j]))
 			j++;
 		list[(*index)++] = ft_strsub(buffer, i, j - i);
 		i = j;
@@ -86,7 +81,7 @@ int insert_word(char **list, char *buffer, int *index, int i)
 	return (i);
 }
 
-char **fill_list(char *buffer, int length)
+char	**fill_list(char *buffer, int length)
 {
 	int		i;
 	int		index;
@@ -98,7 +93,7 @@ char **fill_list(char *buffer, int length)
 		return (NULL);
 	while (buffer[i])
 	{
-		while (buffer[i] && is_space(buffer[i]))
+		while (buffer[i] && ft_isspace(buffer[i]))
 			i++;
 		if (buffer[i])
 			i = insert_word(list, buffer, &index, i);
@@ -107,13 +102,11 @@ char **fill_list(char *buffer, int length)
 	return (list);
 }
 
-char **split_input(char *buffer)
+char	**split_input(char *buffer)
 {
 	int		word_count;
-	char	**list;
 
 	word_count = 0;
-	list = NULL;
 	if (buffer)
 	{
 		if ((word_count = count_words(buffer)) > 0)

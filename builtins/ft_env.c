@@ -6,7 +6,7 @@
 /*   By: tcho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 02:26:43 by tcho              #+#    #+#             */
-/*   Updated: 2019/04/11 10:24:49 by tcho             ###   ########.fr       */
+/*   Updated: 2019/04/12 01:33:33 by tcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int g_display_path = 1;
 
-int ft_env(char **command, char ***env)
+int	ft_env(char **command, char ***env)
 {
 	int		i;
 	char	*key;

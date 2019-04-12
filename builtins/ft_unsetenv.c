@@ -6,7 +6,7 @@
 /*   By: tcho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 04:58:32 by tcho              #+#    #+#             */
-/*   Updated: 2019/04/11 11:15:23 by tcho             ###   ########.fr       */
+/*   Updated: 2019/04/12 01:28:55 by tcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "b_printf.h"
 #include "libft.h"
 
-int ft_unsetenv(char **command, char ***env)
+int	ft_unsetenv(char **command, char ***env)
 {
 	int	i;
 	int	length;

@@ -6,12 +6,9 @@
 /*   By: tcho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 02:29:21 by tcho              #+#    #+#             */
-/*   Updated: 2018/12/09 01:11:32 by tcho             ###   ########.fr       */
+/*   Updated: 2019/04/12 01:32:33 by tcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// Can change to a directory using /.
-// Can cd into ~ or $
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -20,37 +17,35 @@
 #include "header.h"
 #include "libft.h"
 
-void update_path(char ***env, char *path)
+void	update_path(char ***env, char *path)
 {
 	ft_listv_remove(env, get_env_index(*env, "OLDPWD"));
 	ft_listv_add("OLDPWD", path, env);
-	getcwd(path, 100);
+	getcwd(path, 256);
 	ft_listv_remove(env, get_env_index(*env, "PWD"));
 	ft_listv_add("PWD", path, env);
-	free(path);
 }
 
-char *get_directory(char **command, char ***env)
+char	*get_directory(char **command, char ***env)
 {
 	char *directory;
 
 	directory = command[1] ? command[1] : get_env_value(*env, "HOME");
 	if ((ft_strlen(directory) == 1) && directory[0] == '-')
-		directory = get_env_value(*env, "OLDPWD"); 
-	else if (ft_strcmp(directory, "--") == 0)
+		directory = get_env_value(*env, "OLDPWD");
+	else if (ft_strequ(directory, "--"))
 		directory = get_env_value(*env, "HOME");
 	return (directory);
 }
 
-int ft_cd(char **command, char ***env)
+int		ft_cd(char **command, char ***env)
 {
 	int		result;
-	char	*path;
+	char	path[256];
 	char	*directory;
 
-	path = (char *)malloc(sizeof(char) * 100);
 	directory = get_directory(command, env);
-	getcwd(path, 100);
+	getcwd(path, 256);
 	if ((result = chdir(directory)) < 0)
 	{
 		if (command[1])
@@ -58,5 +53,7 @@ int ft_cd(char **command, char ***env)
 	}
 	else
 		update_path(env, path);
+	if (!ft_strequ(command[1], directory))
+		free(directory);
 	return (1);
 }

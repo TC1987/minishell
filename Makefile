@@ -6,15 +6,12 @@
 #    By: tcho <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/27 23:50:23 by tcho              #+#    #+#              #
-#    Updated: 2019/04/11 16:02:10 by tcho             ###   ########.fr        #
+#    Updated: 2019/04/11 20:11:07 by tcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-BASE = main \
-	   helpers \
-	   split_input \
-	   ./builtins/ft_cd \
+BASE = ./builtins/ft_cd \
 	   ./builtins/ft_echo \
 	   ./builtins/ft_env \
 	   ./builtins/ft_exit \
@@ -23,7 +20,15 @@ BASE = main \
 	   ./get_next_line/get_next_line \
 	   ./list_vector/ft_listv_add \
 	   ./list_vector/ft_listv_remove \
-	   ./list_vector/ft_listv_length
+	   ./list_vector/ft_listv_length \
+	   ./src/get \
+	   ./src/input \
+	   ./src/sanitize_input \
+	   ./src/display \
+	   ./src/free_and_str \
+	   ./src/exec_do \
+	   ./src/split_input \
+	   ./src/main
 SRC = $(addsuffix .c, $(BASE))
 OBJ = $(addsuffix .o, $(BASE))
 HEADERS = -I. -I./libft -I./b_printf -I./list_vector -I./get_next_line -I./builtins
@@ -36,7 +41,7 @@ SANITIZE = -fsanitize=address -g
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBS)
-	@echo "Generating Executable"
+	@echo "creating executable"
 	@$(CC) $(NAME) $(SRC) $(HEADERS) $(LIBS)
 
 debug: $(LIBS)
@@ -49,18 +54,19 @@ fsanitize:
 	@$(CC) $(NAME) $(SRC) $(HEADERS) $(LIBS) $(SANITIZE)
 
 $(LIBS):
-	@echo "Generating Libraries"
 	@make -C ./libft
+	@echo "creating libft"
 	@make -C ./b_printf
+	@echo "creating b_printf"
 
 clean:
-	@echo "Cleaning"
+	@echo "cleaning files"
 	@/bin/rm -f $(OBJ)
 	@make clean -C ./libft
 	@make clean -C ./b_printf
 
 fclean: clean
-	@echo "FCleaning"
+	@echo "fcleaning files"
 	@/bin/rm -f $(NAME)
 	@make fclean -C ./libft
 	@make fclean -C ./b_printf
